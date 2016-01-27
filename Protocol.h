@@ -5,15 +5,20 @@
 #include <Boost/asio.hpp>
 #include <string>
 
+/*
+* @author Marcus Plutowski
+*/
+
 class Handler;
 
 class Protocol{
+
 public:
-	Protocol(string name, void (*retData) (string), int port);
-	virtual void sendData(string data) = 0;	
-	void setName(string newName);
-	string getName();
-private:
+	virtual Protocol(string name, void (*retData) (string), int port) = 0;
+
+	virtual void setName(string newName) = 0;
+	virtual string getName() = 0;
+protected:
 	void (*retData) (string);
 	boost::asio::io_service io_service;
 	string name;

@@ -8,7 +8,14 @@
 #include "Daemon.h"
 #include <Boost/asio.hpp>
 
+
+/*
+* @author Marcus Plutowski
+*/
+
 class Handler{
+friend class Daemon;
+friend class Protocol;
 public:
 	Handler(Boost::asio::ip address targetAddress);
 
@@ -19,10 +26,10 @@ public:
 	void removeProtocol(std::string name);
 
 	Daemon getDaemon(std::string name); 	
-
-	void protocolSend(std::string protocolName, std::string data);
 private:
-	
+	void sendData(string data);
+	void retData(string data);
+
 	map<std::string, *Protocol> Protocols;	
 	map<std::string, *Daemon> Daemons;
 
