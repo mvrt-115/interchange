@@ -2,5 +2,7 @@
 template <class T>
 class Timer{
 public:
-	virtual T getTime() = 0;
+	typedef T timestamp;
+
+	virtual timestamp getTime() = 0;
 };
