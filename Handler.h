@@ -35,8 +35,8 @@ private:
 
 	boost::asio::ip::address_v4 Target;
 
-	vector<std::string> recieveBuffer;
- 	vector<std::string> sendBuffer;
+	map<std::string, vector<std::string>> recieveBuffer;
+ 	map<std::string, vector<std::string>> sendBuffer;
 };
 
 #endif
