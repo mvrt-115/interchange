@@ -1,8 +1,9 @@
+#include <pair>
 
-template <class T>
 class Timer{
 public:
-	typedef T timestamp;
+	enum timeExponent { seconds = 0, deciseconds = 1, centiseconds = 2, milliseconds = 3, microseconds = 6, nanoseconds = 9};	
+	typedef pair<int, timeExponent> chronon;  
 
-	virtual timestamp getTime() = 0;
+	virtual chronon getTime() = 0;
 };
