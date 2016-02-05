@@ -1,13 +1,18 @@
 #include "Datum.h"
 
-Datum::Datum(std::string initData){
+Datum::Datum(std::string initData, std::string target){
 	data = initData;
+	targetName = target;
+}
+
+std::string Datum::getTarget(){
+	return targetName;
 }
 
 void Datum::timeStamp(Timer* timer){
-	timestamps.push_back(timer.getTime);	
+	timestamps.push_back(timer->getTime);	
 }
-timestamp Datum::getTimeStamp(int num){
+Timer::chronon Datum::getTimeStamp(int num){
 	return timestamps[num];
 }
 

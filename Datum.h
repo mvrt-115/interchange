@@ -7,16 +7,19 @@
 
 class Datum{
 public:
-	Datum(std::string initData);
+	Datum(std::string initData, std::string target);
 
 	void timeStamp(Timer* timer);
-	Timer::timestamp getTimeStamp(int num); 
+	Timer::chronon getTimeStamp(int num); 
 
 	void setData(std::string newData);
 	std::string getData();
+	
+	std::string getTarget();
 private:
 	std::string data;
-	std::vector<timestamp> timestamps;
+	std::vector<Timer::chronon> timestamps;
+	std::string targetName;
 };
 
 
