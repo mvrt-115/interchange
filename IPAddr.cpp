@@ -1,6 +1,7 @@
 #include "IPAddr.h"
 #include <sstream>
 #include <algorithm>
+#include <string>
 
 IPAddr::IPAddr(int blockA, int blockB, int blockC, int blockD){
 	this->setAddr(blockA, blockB, blockC, blockD);
@@ -27,7 +28,7 @@ void IPAddr::setAddr(std::string addressString){
 	}
 }
 
-string IPAddr::getIPString(){
+std::string IPAddr::getIPString(){
 
 	std::string output = "";
 
