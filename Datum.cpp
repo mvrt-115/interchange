@@ -22,3 +22,10 @@ void Datum::setData(std::string newData){
 std::string Datum::getData(){
 	return data;
 }
+
+void Datum::setProtocol(std::string newProtocol){
+	protocolTransited = newProtocol;
+}
+std::string Datum::getProtocol(){
+	return protocolTransited;
+}

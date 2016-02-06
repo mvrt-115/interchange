@@ -11,6 +11,7 @@ Daemon::Daemon(std::string uniqueName, Handler* parentHandler, Timer* timer, int
 } 
 
 void Daemon::sendData(std::string data, std::string protocolName){
+	data.setProtocol(protocolName);
 	handler.stageData(data, protocolName);
 }
 	

@@ -16,9 +16,14 @@ public:
 	std::string getData();
 	
 	std::string getTarget();
+	
+	void setProtocol(std::string protocolName);
+	std::std getProtocol();
 private:
 	std::string data;
 	std::vector<Timer::chronon> timestamps;
+	
+	std::string protocolTransited;
 	std::string targetName;
 };
 
