@@ -11,7 +11,7 @@ public:
 	void setAddr(int blockA, int blockB, int blockC, int blockD);
 	void setAddr(std::string addressString);
 
-	string getAddrString();
+    std::string getIPString();
 	int getBlock(int blockNo);
 private:
 	short address[4];
