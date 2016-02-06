@@ -1,13 +1,15 @@
-#ifndef _INTERCHANGE_HANDLER_H
-#define _INTERCHANGE_HANDLER_H
+#ifndef __INTERCHANGE_HANDLER_H
+#define __INTERCHANGE_HANDLER_H
 
 #include <vector>
 #include <string>
 #include <map>
 #include "Protocol.h"
 #include "Daemon.h"
-#include <Boost/asio.hpp>
+#include "IPAddr.h"
 
+#include <auto>
+#include <pthread.h>
 
 /*
 * @author Marcus Plutowski
@@ -17,7 +19,7 @@ class Handler{
 friend class Daemon;
 friend class Protocol;
 public:
-	Handler(Boost::asio::ip address targetAddress);
+	Handler(IPAddr targetAddress, Timer* timer);
 
 	void addDaemon(Daemon *newDaemon, std::string name);
 	void removeDaemon(std::string name);
@@ -26,17 +28,26 @@ public:
 	void removeProtocol(std::string name);
 
 	Daemon getDaemon(std::string name); 	
+	
+	
 private:
-	void sendData(string data);
-	void retData(string data);
+	void stageData(std::string data, std::string protocol);
+	void sendData(std::string data);
+	void retData(std::string data);
 
 	map<std::string, *Protocol> Protocols;	
 	map<std::string, *Daemon> Daemons;
 
-	boost::asio::ip::address_v4 Target;
-
+	IPAddr target;
+	
 	map<std::string, vector<std::string>> recieveBuffer;
- 	map<std::string, vector<std::string>> sendBuffer;
+ 	map<std::string, vector<Timer::Datum>> sendBuffer;
+	
+	Timer* ticker;
+	pthread_t clock;
+
+	void tickDaemons();
+	void tickProtocols();
 };
 
-#endif
+#endif //__INTERCHANGE_HANDLER_H
