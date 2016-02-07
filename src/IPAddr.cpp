@@ -21,7 +21,7 @@ void IPAddr::setAddr(std::string addressString){
 
 	for(int i = 0; i < 4; i++){
 		for(int x = 0; x < 3; x++){
-			buf+=addressString[i+3*x];
+			buf+=addressString[3*i+x];
 		}
 		address[i] = std::stoi(buf);
 		buf = "";
@@ -35,7 +35,7 @@ std::string IPAddr::getIPString(){
 	for(int i = 0; i < 4; i++){
 		if(this->getBlock(i) < 10){output+="0";}
 		if(this->getBlock(i) < 100){output+="0";}
-		std::to_string(this->getBlock(i));
+		output+=std::to_string(this->getBlock(i));
 	}
 
 	return output;

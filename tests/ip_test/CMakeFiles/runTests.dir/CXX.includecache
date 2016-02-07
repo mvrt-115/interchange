@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mvrt/interchange/src/IPAddr.cpp
+IPAddr.h
+/home/mvrt/interchange/src/IPAddr.h
+sstream
+-
+algorithm
+-
+string
+-
+
+/home/mvrt/interchange/src/IPAddr.h
+string
+-
+sstream
+-
+
+/home/mvrt/interchange/tests/ip_test.cpp
+../src/IPAddr.cpp
+/home/mvrt/interchange/src/IPAddr.cpp
+gtest/gtest.h
+-
+
