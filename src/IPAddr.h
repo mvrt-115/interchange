@@ -2,6 +2,7 @@
 #define __INTERCHANGE_IP_ADDR_H
 
 #include <string>
+#include <sstream>
 
 class IPAddr{
 public:
