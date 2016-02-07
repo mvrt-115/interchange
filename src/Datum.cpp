@@ -3,6 +3,7 @@
 Datum::Datum(std::string initData, std::string target){
 	data = initData;
 	targetName = target;
+	protocolTransited = protocol;
 }
 
 std::string Datum::getTarget(){
