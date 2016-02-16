@@ -21,7 +21,7 @@ public:
 
 private:
 	std::string identifier;
-	std::deque<T> data;
+	std::queue<T> data;
 	unsigned short size;	
 };
 

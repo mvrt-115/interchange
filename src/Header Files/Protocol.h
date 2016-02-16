@@ -9,17 +9,13 @@
 * @author Marcus Plutowski
 */
 
-class Handler;
-
 class Protocol{
 
 public:
-	virtual Protocol(std::string name, void (*retData) (std::string), int port) = 0;
-
-	virtual void setName(std::string newName) = 0;
-	virtual std::string getName() = 0;
+	Protocol(int port);
+	std::string getName();
 protected:
-	void (*retData) (std::string);
+	//void (*retData) (std::string);
 	boost::asio::io_service io_service;
 	std::string name;
 	int targetPort;
