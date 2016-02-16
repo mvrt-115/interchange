@@ -3,11 +3,16 @@
 
 #include <vector>
 #include "Datum.h"
+#include "Daemon.h"
+#include "Protocol.h"
 
 /*
 * @author Marcus Plutowski
 */
 class Handler{
+friend class Daemon.;
+friend class Protocol;
+
 public:
 	void addDaemon(Daemon* newDaemon);
 	void removeDaemon(std::string name);
@@ -18,9 +23,13 @@ public:
 	Daemon* getDaemon(std::string name);
 	Protocol* getProtocol(std::string name);		
 protected:
-	void stageData(Datum data);	
-	void retData(Datum data)
+	void stageData(Datum data, std::string protocolName);	
+	void retData(Datum data, std::string protocolName)
 	
+	map<std::string, vector<std::string>> recieveBuffer;
+	map<std::string, vector<Timer::Datum>> sendBuffer;
+
+	IPAddr target;
 };
 
 #endif //__INTERCHANGE_HANDLER_H

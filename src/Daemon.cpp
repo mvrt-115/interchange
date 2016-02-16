@@ -3,11 +3,10 @@
 /*
 * @author Marcus Plutowski
 */
-Daemon::Daemon(std::string uniqueName, Handler* parentHandler, Timer* timer, int initRefreshRate){
+Daemon::Daemon(std::string uniqueName, Handler* parentHandler, int initRefreshRate){
 	name = uniqueName;
 	handler = parentHandler;
 	refreshRate = initRefreshRate;
-	clock = timer;
 } 
 
 void Daemon::sendData(std::string data, std::string protocolName){
@@ -28,7 +27,7 @@ std::string Daemon::getData(string protocolName){
 	return lastRecieved[protocolName];	
 }
 std::string Daemon::waitData(string protocolName){
-	while(readStatus = Daemon::Distant){}
+	while(readStatus[protocolName] = Daemon::ReadStatus::Distant){}
 	return Daemon::getData(protocolName);
 }
 
@@ -37,12 +36,12 @@ std::void Daemon::pullData(){
 	for(auto& protocolBuffer : handler->recieveBuffer){
 		for(auto itr = protocolBuffer.begin(); itr != protocolBuffer.end(); ++itr){
 			if(itr->getTarget() == name){
-				this->readStatus[itr->getProtocol()] = Immediate;		
+				this->readStatus[itr->getProtocol()] = Daemon::ReadStatus::Immediate;		
 				this->lastRecieved[itr->getProtocol()] = *itr;
 				protocolBuffer.erase(itr);
 				break;
 			}
-			this->readStatus[protocolBuffer.begin()->getProtocol()] = max(Distant, this->readStatus[protocolBuffer.begin()->getProtocol()] - 1);
+			this->readStatus[protocolBuffer.begin()->getProtocol()] = max(Daemon::ReadStatus::Distant, this->readStatus[protocolBuffer.begin()->getProtocol()] - 1);
 	}
 }
 

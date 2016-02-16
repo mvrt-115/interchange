@@ -6,8 +6,6 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "Protocol.h"
-#include "Daemon.h"
 #include "IPAddr.h"
 
 #include <auto>
@@ -18,8 +16,6 @@
 */
 
 class AsynchHandler : public Handler{
-friend class Daemon;
-friend class Protocol;
 public:
 	Handler(IPAddr targetAddress, Timer* timer);
 
@@ -39,10 +35,7 @@ private:
 	map<std::string, *Protocol> Protocols;	
 	map<std::string, *Daemon> Daemons;
 
-	IPAddr target;
 	
-	map<std::string, vector<std::string>> recieveBuffer;
- 	map<std::string, vector<Timer::Datum>> sendBuffer;
 	
 	Timer* ticker;
 	pthread_t clock;
