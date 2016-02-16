@@ -20,8 +20,8 @@ private:
 	queue <string> buffer; 
 	int udp_socket;
 	int PORT;
-    struct sockaddr_in servaddr;
-    
+	struct sockaddr_in servaddr;
+
    	void setup();
    	void bindSocket(int s, struct sockaddr_in* myaddr);	
 	void timestamp(string* data, bool add);
