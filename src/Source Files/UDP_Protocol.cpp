@@ -21,5 +21,5 @@ std::string UDP_Protocol::receive() {
 }
 
 void UDP_Protocol::send(string message) {
-	client.send(message);
+	client.addToSendBuffer(message);
 }
