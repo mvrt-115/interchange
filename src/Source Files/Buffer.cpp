@@ -1,4 +1,4 @@
-#include "Buffer.h"
+#include "..\\Header Files\Buffer.h"
 
 Buffer::Buffer(std::int identifer, unsigned short initSize){
 	this->identifier = identifier;
