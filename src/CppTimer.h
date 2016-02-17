@@ -6,12 +6,11 @@
 
 class CppTimer : public Timer{
 public:
-	CppTimer(int exponent);
+	CppTimer();
 	Timer::milliseconds getTime();
 	typedef std::chrono::high_resolution_clock Clock;
 private:
-	int exp;
 	Clock::time_point beginTime;
-	Timer::Milliseconds elapsedTime;
+	Timer::milliseconds elapsedTime;
 };
 #endif
