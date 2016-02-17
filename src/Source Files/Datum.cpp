@@ -1,5 +1,9 @@
 #include "..\\Header Files\Datum.h"
 
+/*
+* @author Marcus Plutowski, Arushi Rai
+*/
+
 Datum::Datum(std::string initData, std::string target){
 	data = initData;
 	targetName = target;
@@ -22,6 +26,19 @@ void Datum::setData(std::string newData){
 }
 std::string Datum::getData(){
 	return data;
+}
+
+std::string getSendable(){
+	std::string sendable; 
+	sendable = protocolTransited;
+	sendable += "; "; //seperation characters
+	sendable += data;
+
+	if (protocolTransited[0] == 'T') {
+		//enter TCP data string format
+	}
+
+	return sendable;
 }
 
 void Datum::setProtocol(std::string newProtocol){

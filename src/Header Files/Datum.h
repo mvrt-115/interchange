@@ -5,6 +5,10 @@
 #include "Timer.h"
 #include <vector>
 
+/*
+* @author Marcus Plutowski
+*/
+
 class Datum{
 public:
 	Datum(std::string initData, std::string target, std::string protocol);
@@ -14,6 +18,7 @@ public:
 
 	void setData(std::string newData);
 	std::string getData();
+	std::string getSendable();
 	
 	std::string getTarget();
 	

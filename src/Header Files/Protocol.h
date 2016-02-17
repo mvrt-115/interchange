@@ -6,7 +6,7 @@
 #include <string>
 
 /*
-* @author Marcus Plutowski
+* @author Marcus Plutowski, Arushi Rai
 */
 
 class Protocol{
@@ -15,10 +15,12 @@ public:
 	Protocol(int port);
 	std::string getName();
 protected:
-	//void (*retData) (std::string);
 	boost::asio::io_service io_service;
 	std::string name;
 	int targetPort;
+
+	virtual send(std::string data) = 0;
+	virtual receive() = 0;
 };
 
 #endif
