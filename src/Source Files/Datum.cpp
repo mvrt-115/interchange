@@ -4,7 +4,7 @@
 * @author Marcus Plutowski, Arushi Rai
 */
 
-Datum::Datum(std::string initData, std::string target){
+Datum::Datum(std::string initData, std::string target, std::string protocol){
 	data = initData;
 	targetName = target;
 	protocolTransited = protocol;

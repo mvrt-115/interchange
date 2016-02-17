@@ -4,19 +4,19 @@
 * @author Arushi Rai
 */
 
-UDP_Client::UDP_Client(char recipientAddr[32], int port) {
+UDP_Client::UDP_Client(string address, int port) {
 	buffer = new Buffer("UDP Send Buffer", BUFFER_SIZE);
-	memcpy(this->recipientAddr, recipientAddr, sizeof(recipientAddr));
+	PORT = port;
+	*char temp[] = address;
+	memcpy(recipientAddr, temp, sizeof(recipientAddr));
 	setup();
 }
 
 //ic
 void UDP_Client::setup() {
-	//binds socket and sets udp server address
-	int udp_socket;
-    
-    if ((udp_socket = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        std::perror("cannot create socket");
+	//binds socket and sets udp server address    
+	if ((udp_socket = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+        perror("cannot create socket");
     }
 
     struct sockaddr_in myaddr;
@@ -48,7 +48,7 @@ void UDP_Client::send() {
 	return;
 }
 
-void UDPClient::bindSocket (int s, struct sockaddr_in* myaddr) {
+void UDP_Client::bindSocket (int s, struct sockaddr_in* myaddr) {
     memset((char *)myaddr, 0, sizeof(*myaddr));
     
     *myaddr.sin_family = AF_INET;
@@ -66,8 +66,8 @@ bool UDP_Client::validate(string data) {
 
 //ic
 Datum UDP_Client::empty() {
-	timestamp(&(buffer.get()), false);
 	Datum data = buffer.pop();
+	timestamp(&data, false);
 
 	return data;
 }

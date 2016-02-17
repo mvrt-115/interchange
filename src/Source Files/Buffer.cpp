@@ -14,9 +14,9 @@ void Buffer<T>::setIdentifier(std::string identifier){
 }
 
 void Buffer<T>::push(T newData){
-	if(size == 0){return;} //using assignment operator, wrong
+	if(size == 0){return;} 
 
-	while(data.getSize() == size){ //using assignment operator, wrong
+	while(data.getSize() == size){ 
 		this->pop();
 	}
 	data.push(newData);	

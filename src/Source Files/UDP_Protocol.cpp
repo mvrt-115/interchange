@@ -4,10 +4,12 @@
 * @author Arushi Rai
 */
 
-UDP_Protocol::UDP_Protocol (std::string name, void (*retData) (std::string), string addr, int port) : Protocol(name, *retData, port) { 
+UDP_Protocol::UDP_Protocol (int port) : Protocol(port){ 
+	std::string address = " ";
+	name = "UDP Protocol";
 	address = new IPAddr(addr);
 	client = new UDP_Client(address.getIPString(), port);
-	server = new UDP_Server();
+	server = new UDP_Server(address.getIPString(), port);
 }
 
 std::string UDP_Protocol::getName() {

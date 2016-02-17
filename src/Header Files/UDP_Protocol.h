@@ -19,11 +19,11 @@ private:
 	UDP_Client client; //make static?
 	IPAddr address;
 public:
-	UDP_Protocol(std::string name, void (*retData) (std::string), int port);
+	UDP_Protocol(int port);
 	std::string getName();
 	void start(); //will start thread to run client and server simultaniously
 	std::string receive();
-	void send(string message);
+	void send(string message); //might not need this function
 };
 
 #endif
