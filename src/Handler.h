@@ -5,12 +5,13 @@
 #include "Datum.h"
 #include "Daemon.h"
 #include "Protocol.h"
+#include "Timer.h"
 
 /*
 * @author Marcus Plutowski
 */
 class Handler{
-friend class Daemon.;
+friend class Daemon;
 friend class Protocol;
 
 public:
@@ -22,6 +23,8 @@ public:
 
 	Daemon* getDaemon(std::string name);
 	Protocol* getProtocol(std::string name);		
+	
+	Timer::milliseconds getTime();
 protected:
 	void stageData(Datum data, std::string protocolName);	
 	void retData(Datum data, std::string protocolName)

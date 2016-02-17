@@ -7,12 +7,11 @@
 class CppTimer : public Timer{
 public:
 	CppTimer(int exponent);
-	Timer::chronon getTime();
+	Timer::milliseconds getTime();
 	typedef std::chrono::high_resolution_clock Clock;
-
 private:
 	int exp;
 	Clock::time_point beginTime;
-	int elapsedTime;
+	Timer::Milliseconds elapsedTime;
 };
 #endif

@@ -34,8 +34,6 @@ private:
 
 	map<std::string, *Protocol> Protocols;	
 	map<std::string, *Daemon> Daemons;
-
-	
 	
 	Timer* ticker;
 	pthread_t clock;

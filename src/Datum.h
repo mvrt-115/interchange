@@ -10,7 +10,7 @@ public:
 	Datum(std::string initData, std::string target, std::string protocol);
 
 	void timeStamp(Timer* timer);
-	Timer::chronon getTimeStamp(int num); 
+	Timer::milliseconds getTimeStamp(int num); 
 
 	void setData(std::string newData);
 	std::string getData();
@@ -21,7 +21,7 @@ public:
 	std::std getProtocol();
 private:
 	std::string data;
-	std::vector<Timer::chronon> timestamps;
+	std::vector<Timer::milliseconds> timestamps;
 	
 	std::string protocolTransited;
 	std::string targetName;

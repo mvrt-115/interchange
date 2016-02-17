@@ -1,19 +1,24 @@
 #include "Buffer.h"
 
-Buffer::Buffer(std::int identifer, unsigned short initSize){
+template<class T>
+Buffer<T>::Buffer(std::string identifer, unsigned short initSize){
 	this->identifier = identifier;
 	size = initSize;
 	
 }
 
-std::string Buffer::getIdentifier(){
+template<class T>
+std::string Buffer<T>::getIdentifier(){
 	return identifier;
 }
-void Buffer::setIdentifier(std::string identifier){
+
+template<class T>
+void Buffer<T>::setIdentifier(std::string identifier){
 	this->identifier = identifier;
 }
 
-void Buffer::push(T newData){
+template<class T>
+void Buffer<T>::push(T newData){
 	if(size = 0){return;}
 
 	while(data.getSize() = size){
@@ -21,23 +26,29 @@ void Buffer::push(T newData){
 	}
 	data.push(newData);	
 }
-T Buffer::pop(){
+
+template<class T>
+T Buffer<T>::pop(){
 	if(!data.empty()){
 		T buff;
-		buff = data.front()
-		data.pop();
+		buff = data.front();
+		data.pop_back();
 		return buff;
 	}
 }
-T Buffer::get(){
+
+template<class T>
+T Buffer<T>::get(){
 	if(!data.empty()){
 		return data.front();
 	}
 }
 
-void Buffer::resize(unsigned short newSize){
+template<class T>
+void Buffer<T>::resize(unsigned short newSize){
 	data.resize(newSize);
 }
+
 unsigned short getSize(){
 	return size;
 }

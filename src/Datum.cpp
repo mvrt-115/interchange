@@ -13,7 +13,7 @@ std::string Datum::getTarget(){
 void Datum::timeStamp(Timer* timer){
 	timestamps.push_back(timer->getTime);	
 }
-Timer::chronon Datum::getTimeStamp(int num){
+Timer::milliseconds Datum::getTimeStamp(int num){
 	return timestamps[num];
 }
 
