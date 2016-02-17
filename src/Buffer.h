@@ -8,7 +8,7 @@ template<class T>
 class Buffer{
 public:
 	Buffer(std::string identifier, unsigned short initSize);
-	
+
 	std::string getIdentifier();
 	void setIdentifier(std::string identifier);
 
@@ -22,7 +22,7 @@ public:
 private:
 	std::string identifier;
 	std::deque<T> data;
-	unsigned short size;	
+	unsigned short size;
 };
 
 #endif //__INTERCHANGE_BUFFER_H
