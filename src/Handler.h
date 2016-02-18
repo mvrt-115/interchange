@@ -12,29 +12,30 @@
 * @author Marcus Plutowski
 */
 class Daemon;
-class Handler{
-friend class Daemon;
-friend class Protocol;
+class Handler {
+    friend class Daemon;
+    friend class Protocol;
 
 public:
-	void addDaemon(Daemon* newDaemon);
-	void removeDaemon(std::string name);
+    void addDaemon(Daemon* newDaemon);
+    void removeDaemon(std::string name);
 
-	void addProtocol(Protocol* newProtocol);
-	void removeProtocol(std::string name);
+    void addProtocol(Protocol* newProtocol);
+    void removeProtocol(std::string name);
 
-	Daemon* getDaemon(std::string name);
-	Protocol* getProtocol(std::string name);
+    Daemon* getDaemon(std::string name);
+    Protocol* getProtocol(std::string name);
 
-	Timer::milliseconds getTime();
+    Timer::milliseconds getTime();
+
 protected:
-	void stageData(Datum data, std::string protocolName);
-	void retData(Datum data, std::string protocolName);
+    void stageData(Datum data, std::string protocolName);
+    void retData(Datum data, std::string protocolName);
 
-	std::vector<Buffer<Datum::Datum>> receiveBuffer;
-	std::vector<Buffer<Datum::Datum>> sendBuffer;
+    std::vector<Buffer<Datum::Datum>> receiveBuffer;
+    std::vector<Buffer<Datum::Datum>> sendBuffer;
 
-	IPAddr target;
+    IPAddr target;
 };
 
 #endif //__INTERCHANGE_HANDLER_H

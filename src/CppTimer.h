@@ -4,13 +4,14 @@
 #include "Timer.h"
 #include <chrono>
 
-class CppTimer : public Timer{
+class CppTimer : public Timer {
 public:
-	CppTimer();
-	Timer::milliseconds getTime();
-	typedef std::chrono::high_resolution_clock Clock;
+    CppTimer();
+    Timer::milliseconds getTime();
+    typedef std::chrono::high_resolution_clock Clock;
+
 private:
-	Clock::time_point beginTime;
-	Timer::milliseconds elapsedTime;
+    Clock::time_point beginTime;
+    Timer::milliseconds elapsedTime;
 };
 #endif
