@@ -5,7 +5,7 @@
 * @author Marcus Plutowski
 */
 Daemon::Daemon(std::string uniqueName, Handler* parentHandler,
-               int initRefreshRate)
+    int initRefreshRate)
 {
     name = uniqueName;
     handler = parentHandler;
@@ -49,7 +49,7 @@ void Daemon::pullData()
                 break;
             }
             this->readStatus[protocolBuffer.begin()->getProtocol()] = max(Daemon::ReadStatus::Distant,
-                                                                          this->readStatus[protocolBuffer.begin()->getProtocol()] - 1);
+                this->readStatus[protocolBuffer.begin()->getProtocol()] - 1);
         }
     }
 }

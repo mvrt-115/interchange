@@ -2,7 +2,7 @@
 
 template <class T>
 Buffer<T>::Buffer(std::string identifer,
-                  typename std::deque<T>::size_type initSize)
+    typename std::deque<T>::size_type initSize)
 {
     this->identifier = identifier;
     data.resize(initSize);

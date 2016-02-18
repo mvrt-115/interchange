@@ -14,7 +14,7 @@ class Daemon {
 
 public:
     Daemon(std::string uniqueName, Handler* parentHandler,
-           int initRefreshRate); // uniqueName defines the Daemon for the Handler.
+        int initRefreshRate); // uniqueName defines the Daemon for the Handler.
     // refreshRate is in ms
     void sendData(Datum::Datum Data, std::string protocolName);
 
@@ -36,8 +36,8 @@ private:
     unsigned int refreshRate;
 
     enum class ReadStatus { Immediate,
-                            Last,
-                            Distant };
+        Last,
+        Distant };
     std::map<std::string, ReadStatus> readStatus;
 };
 
