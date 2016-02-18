@@ -1,10 +1,10 @@
 #include "Buffer.h"
 
 template<class T>
-Buffer<T>::Buffer(std::string identifer, unsigned short initSize){
+Buffer<T>::Buffer(std::string identifer,
+		typename std::deque<T>::size_type initSize){
 	this->identifier = identifier;
-	size = initSize;
-
+	data.resize(initSize);
 }
 
 template<class T>
@@ -19,12 +19,10 @@ void Buffer<T>::setIdentifier(std::string identifier){
 
 template<class T>
 void Buffer<T>::push(T newData){
-	if(size = 0){return;}
+	if(this->getMaxSize == 0){return;}
 
-	while(data.getSize() = size){
-		this->pop();
-	}
-	data.push(newData);
+	this->data.pop_front();  // Should remove enough
+	this->data.push_back(newData);
 }
 
 template<class T>
@@ -32,7 +30,7 @@ T Buffer<T>::pop(){
 	if(!data.empty()){
 		T buff;
 		buff = data.front();
-		data.pop_back();
+		data.pop_front();
 		return buff;
 	}
 }
@@ -45,11 +43,16 @@ T Buffer<T>::get(){
 }
 
 template<class T>
-void Buffer<T>::resize(unsigned short newSize){
+void Buffer<T>::resize(typename std::deque<T>::size_type newSize){
 	data.resize(newSize);
 }
 
 template<class T>
-unsigned short Buffer<T>::getSize(){
-	return size;
+auto Buffer<T>::getMaxSize(){
+	return data.max_size();
+}
+
+template<class T>
+auto Buffer<T>::getSize(){
+	return data.size();
 }
