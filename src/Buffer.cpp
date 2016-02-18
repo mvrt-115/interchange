@@ -4,7 +4,7 @@ template<class T>
 Buffer<T>::Buffer(std::string identifer, unsigned short initSize){
 	this->identifier = identifier;
 	size = initSize;
-	
+
 }
 
 template<class T>
@@ -24,7 +24,7 @@ void Buffer<T>::push(T newData){
 	while(data.getSize() = size){
 		this->pop();
 	}
-	data.push(newData);	
+	data.push(newData);
 }
 
 template<class T>
@@ -49,6 +49,7 @@ void Buffer<T>::resize(unsigned short newSize){
 	data.resize(newSize);
 }
 
-unsigned short getSize(){
+template<class T>
+unsigned short Buffer<T>::getSize(){
 	return size;
 }

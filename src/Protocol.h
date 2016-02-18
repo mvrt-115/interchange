@@ -14,14 +14,14 @@ class Handler;
 class Protocol{
 
 public:
-	virtual Protocol(string name, void (*retData) (string), int port) = 0;
+	Protocol(std::string name, void (*retData) (std::string), int port);
 
-	virtual void setName(string newName) = 0;
-	virtual string getName() = 0;
+	virtual void setName(std::string newName) = 0;
+	virtual std::string getName() = 0;
 protected:
-	void (*retData) (string);
+	void (*retData) (std::string);
 	boost::asio::io_service io_service;
-	string name;
+	std::string name;
 	int targetPort;
 };
 
