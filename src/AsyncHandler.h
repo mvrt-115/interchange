@@ -15,7 +15,7 @@
 * @author Marcus Plutowski
 */
 
-class AsynchHandler : public Handler {
+class AsyncHandler : public Handler {
 public:
     Handler(IPAddr targetAddress, Timer* timer);
 
