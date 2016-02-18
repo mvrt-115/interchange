@@ -23,22 +23,24 @@ unsigned int Daemon::getRefreshRate(){
 	return refreshRate;
 }
 
-Daemon Daemon::getData(std::string protocolName){
-	return lastRecieved[protocolName];
+auto Daemon::getData(std::string protocolName){
+	return lastReceived[protocolName];
 }
 
-Daemon Daemon::waitData(std::string protocolName){
+auto Daemon::waitData(std::string protocolName){
 	while(readStatus[protocolName] == Daemon::ReadStatus::Distant){}
 	return Daemon::getData(protocolName);
 }
 
 
 void Daemon::pullData(){
-	for(auto& protocolBuffer : handler->recieveBuffer){
-		for(auto itr = protocolBuffer.begin(); itr != protocolBuffer.end(); ++itr){
+	for(auto& protocolBuffer : handler->receiveBuffer){
+		for(auto itr = protocolBuffer.begin(); itr != protocolBuffer.end();
+				++itr){
 			if(itr->getTarget() == name){
-				this->readStatus[itr->getProtocol()] = Daemon::ReadStatus::Immediate;
-				this->lastRecieved[itr->getProtocol()] = *itr;
+				this->readStatus[itr->getProtocol()] =
+					Daemon::ReadStatus::Immediate;
+				this->lastReceived[itr->getProtocol()] = *itr;
 				protocolBuffer.erase(itr);
 				break;
 			}

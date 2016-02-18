@@ -1,6 +1,6 @@
 #include "Datum.h"
 
-Datum::Datum(std::string initData, std::string target){
+Datum::Datum(std::string initData, std::string target, std::string protocol){
 	data = initData;
 	targetName = target;
 	protocolTransited = protocol;
@@ -11,7 +11,7 @@ std::string Datum::getTarget(){
 }
 
 void Datum::timeStamp(Timer* timer){
-	timestamps.push_back(timer->getTime);	
+	timestamps.push_back(timer->getTime());
 }
 Timer::milliseconds Datum::getTimeStamp(int num){
 	return timestamps[num];

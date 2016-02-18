@@ -16,15 +16,15 @@ public:
 	Daemon(std::string uniqueName, Handler* parentHandler, int initRefreshRate); //uniqueName defines the Daemon for the Handler. refreshRate is in ms
 	void sendData(Datum::Datum Data, std::string protocolName);
 
-	Daemon getData(std::string protocolName); //Retrieves the last data retrieved by the Daemon from said protocol
-	Daemon waitData(std::string protocolName); //Waits for new data from said protocol
+	auto getData(std::string protocolName); //Retrieves the last data retrieved by the Daemon from said protocol
+	auto waitData(std::string protocolName); //Waits for new data from said protocol
 
 	void setRefreshRate(unsigned int newRefreshRate);
 	unsigned int getRefreshRate();
 private:
 	void pullData();
 
-	std::map<Datum::Datum, std::string> lastRecieved;
+	std::map<std::string, Datum::Datum> lastReceived;
 	Handler* handler;
 	std::string name;
 
