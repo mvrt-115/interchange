@@ -6,10 +6,12 @@
 #include "Datum.h"
 #include "Daemon.h"
 #include "Protocol.h"
+#include "Buffer.h"
 
 /*
 * @author Marcus Plutowski
 */
+class Daemon;
 class Handler{
 friend class Daemon;
 friend class Protocol;
@@ -29,8 +31,8 @@ protected:
 	void stageData(Datum data, std::string protocolName);
 	void retData(Datum data, std::string protocolName);
 
-	std::map<std::string, std::vector<std::string> > recieveBuffer;
-	std::map<std::string, std::vector<Datum::Datum> > sendBuffer;
+	std::vector<Buffer<Datum::Datum>> receiveBuffer;
+	std::vector<Buffer<Datum::Datum>> sendBuffer;
 
 	IPAddr target;
 };
