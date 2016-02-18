@@ -1,7 +1,7 @@
 #include <utility>
 
-class Timer{
+class Timer {
 public:
-	typedef float milliseconds;
-	virtual milliseconds getTime() = 0;
+    typedef float milliseconds;
+    virtual milliseconds getTime() = 0;
 };

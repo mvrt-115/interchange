@@ -1,32 +1,22 @@
 #include "Datum.h"
 
-Datum::Datum(std::string initData, std::string target, std::string protocol){
-	data = initData;
-	targetName = target;
-	protocolTransited = protocol;
+Datum::Datum(std::string initData, std::string target, std::string protocol)
+{
+    data = initData;
+    targetName = target;
+    protocolTransited = protocol;
 }
 
-std::string Datum::getTarget(){
-	return targetName;
-}
+std::string Datum::getTarget() { return targetName; }
 
-void Datum::timeStamp(Timer* timer){
-	timestamps.push_back(timer->getTime());
-}
-Timer::milliseconds Datum::getTimeStamp(int num){
-	return timestamps[num];
-}
+void Datum::timeStamp(Timer* timer) { timestamps.push_back(timer->getTime()); }
+Timer::milliseconds Datum::getTimeStamp(int num) { return timestamps[num]; }
 
-void Datum::setData(std::string newData){
-	data = newData;
-}
-std::string Datum::getData(){
-	return data;
-}
+void Datum::setData(std::string newData) { data = newData; }
+std::string Datum::getData() { return data; }
 
-void Datum::setProtocol(std::string newProtocol){
-	protocolTransited = newProtocol;
+void Datum::setProtocol(std::string newProtocol)
+{
+    protocolTransited = newProtocol;
 }
-std::string Datum::getProtocol(){
-	return protocolTransited;
-}
+std::string Datum::getProtocol() { return protocolTransited; }

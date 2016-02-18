@@ -11,19 +11,19 @@
 
 class Handler;
 
-class Protocol{
+class Protocol {
 
 public:
-	Protocol(std::string name, void (*retData) (std::string), int port);
+    Protocol(std::string name, void (*retData)(std::string), int port);
 
-	virtual void setName(std::string newName) = 0;
-	virtual std::string getName() = 0;
+    virtual void setName(std::string newName) = 0;
+    virtual std::string getName() = 0;
+
 protected:
-	void (*retData) (std::string);
-	boost::asio::io_service io_service;
-	std::string name;
-	int targetPort;
+    void (*retData)(std::string);
+    boost::asio::io_service io_service;
+    std::string name;
+    int targetPort;
 };
 
 #endif
-
