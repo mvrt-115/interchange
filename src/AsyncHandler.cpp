@@ -13,7 +13,7 @@ AsyncHandler::~AsyncHandler()
 
 void AsyncHandler::addDaemon(Daemon* newDaemon) override
 {
-        Daemons.insert( std::pair< std::string, Daemon* >(newDaemon->getName(), newDaemon);
+    Daemons.insert( std::pair< std::string, Daemon* >(newDaemon->getName(), newDaemon);
 }
 void AsyncHandler::removeDaemon(std::string name) override
 {
@@ -22,7 +22,7 @@ void AsyncHandler::removeDaemon(std::string name) override
 
 void AsyncHandler::addProtocol(Protocol* newProtocol) override
 {
-        Protocols.insert( std::pair< std::string, Protocol* >(newProtocol->getName(), newProtocol);
+    Protocols.insert( std::pair< std::string, Protocol* >(newProtocol->getName(), newProtocol);
 }
 void AsyncHandler::removeProtocol(std::string name) override
 {
