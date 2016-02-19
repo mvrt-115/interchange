@@ -20,10 +20,10 @@ public:
     virtual std::string getName() = 0;
 
 protected:
-    void (*retData)(std::string);
-    boost::asio::io_service io_service;
     std::string name;
     int targetPort;
+
+    void pullData();
 };
 
 #endif
