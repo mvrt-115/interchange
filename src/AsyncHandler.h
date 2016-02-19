@@ -46,6 +46,8 @@ private:
     void *regulateHandler(void* arg);
     void tickDaemons();
     void tickProtocols();
+    
+    bool runHandler;
 };
 
 #endif //__INTERCHANGE_ASYNCH_HANDLER_H

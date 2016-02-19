@@ -14,6 +14,7 @@ AsynchHandler::AsynchHandler(IPAddr targetAddress, Timer* timer)
     lastProtocolTick = timer.getTime();
     lastDaemonTick = timer.getTime();
 
+    runHandler = true;
     pthread_create(&clock, NULL, &regulateHandler, NULL);
 }
 AsynchHandler::AsynchHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod){
@@ -24,12 +25,13 @@ AsynchHandler::AsynchHandler(IPAddr targetAddress, Timer* timer, Timer::millisec
 
     lastProtocolTick = timer.getTime();
     lastDaemonTick = timer.getTime();
-
+    
+    runHandler = true;
     pthread_create(&clock, NULL, &regulateHandler, NULL);
 }
 AsynchHandler::~AsynchHandler()
 {
-    
+    runHandler = false; 
 }
 
 void AsynchHandler::addDaemon(Daemon* newDaemon) override
@@ -50,17 +52,26 @@ void AsynchHandler::removeProtocol(std::string name) override
     Daemons.erase(name);
 }
 
-void AsynchHandler::stageData(Datum data, std::string protocolName)
+void AsynchHandler::stageData(Datum data, std::string protocolName) override
 {
-    
+    for(auto buff : sendBuffer){
+        if(buff.first = protocolName){
+            buff.push_back(data);
+        }
+    }
 }
-void AsynchHandler::retData(Datum data, std::string protocolName)
+void AsynchHandler::retData(Datum data, std::string protocolName) override
 {
+    for(auto buff : receiveBuffer){
+        if(buff.first = protocolName){
+            buff.push_back(data);
+        }
+    }
 }
 
 void* AsynchHandler::regulateHandler(void* arg)
 {
-    while (true) {
+    while (regulateHandler) {
 	if((timer.getTime() - lastDaemonTick) >= daemonTickRate){
        	    this->tickDaemons();
         }
@@ -73,13 +84,13 @@ void AsynchHandler::tickDaemons()
 {
     for (Daemon* daemon : Daemons) {
         daemon->pullData();
-        /* TODO FINISH REGULATION */
-    }
+        /*TODO FINISH REGULATION */
+    } 
 }
 void AsynchHandler::tickProtocols()
 {
     for (Protocol* protocol : Protocol) {
         protocol->pullData();
-        /* TODO IMPLEMENT Protocol::fetchData() & FINISH REGULATION */
+        /*TODO FINISH REGULATION */
     }
 }
