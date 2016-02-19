@@ -7,6 +7,7 @@
 
 class Datum {
 public:
+    Datum();
     Datum(std::string initData, std::string target, std::string protocol);
 
     void timeStamp(Timer* timer);

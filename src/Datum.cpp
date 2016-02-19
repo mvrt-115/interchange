@@ -1,5 +1,13 @@
 #include "Datum.h"
 
+Datum::Datum()
+{
+    // Use null protocol rather than this or check for empty protocol
+    data = "";
+    targetName = "";
+    protocolTransited = "";
+}
+
 Datum::Datum(std::string initData, std::string target, std::string protocol)
 {
     data = initData;

@@ -9,6 +9,7 @@
 /*
 * @author Marcus Plutowski
 */
+class Handler;
 class Daemon {
     friend class Handler;
 
@@ -35,7 +36,7 @@ private:
 
     unsigned int refreshRate;
 
-    enum class ReadStatus { Immediate,
+    enum ReadStatus { Immediate = 0, // not class bc others try to subtract ints from it
         Last,
         Distant };
     std::map<std::string, ReadStatus> readStatus;
