@@ -1,12 +1,13 @@
 #ifndef __INTERCHANGE_HANDLER_H
 #define __INTERCHANGE_HANDLER_H
 
-#include <vector>
+#include <map>
+#include <string>
+#include <boost/circular_buffer.hpp>
 #include "IPAddr.h"
 #include "Datum.h"
 #include "Daemon.h"
 #include "Protocol.h"
-#include "Buffer.h"
 
 /*
 * @author Marcus Plutowski
@@ -32,8 +33,8 @@ protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);
 
-    std::vector<Buffer<Datum::Datum>> receiveBuffer;
-    std::vector<Buffer<Datum::Datum>> sendBuffer;
+    std::map<std::string, boost::circular_buffer<Datum::Datum>> receiveBuffer;
+    std::map<std::string, boost::circular_buffer<Datum::Datum>> sendBuffer;
 
     IPAddr target;
 };

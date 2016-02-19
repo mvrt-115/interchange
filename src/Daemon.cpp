@@ -1,5 +1,6 @@
 #include "Daemon.h"
 #include "Datum.h"
+#include "Handler.h"
 
 /*
 * @author Marcus Plutowski
@@ -39,17 +40,5 @@ auto Daemon::waitData(std::string protocolName)
 
 void Daemon::pullData()
 {
-    for (auto& protocolBuffer : handler->receiveBuffer) {
-        for (auto itr = protocolBuffer.begin(); itr != protocolBuffer.end();
-             ++itr) {
-            if (itr->getTarget() == name) {
-                this->readStatus[itr->getProtocol()] = Daemon::ReadStatus::Immediate;
-                this->lastReceived[itr->getProtocol()] = *itr;
-                protocolBuffer.erase(itr);
-                break;
-            }
-            this->readStatus[protocolBuffer.begin()->getProtocol()] = max(Daemon::ReadStatus::Distant,
-                this->readStatus[protocolBuffer.begin()->getProtocol()] - 1);
-        }
-    }
+    // TODO
 }
