@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <stdio.h> //used for fprintf
+#include <netdb.h>
 
 #include "..\Buffer.h"
 #include "..\Datum.h"
@@ -30,8 +31,8 @@ private:
 	void timestamp(Datum* data, bool add);
 	bool validate(string data); //validates the buffer
 	struct sockaddr_in remaddr; // remote address 
-	socklen_t addrlen = sizeof(remaddr); //length of addresses 
-
+	socklen_t addrlen; //length of addresses 
+	
 public:
 	UDP_Server(string address, int port);
 	void receive();

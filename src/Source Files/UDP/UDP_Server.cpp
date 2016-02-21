@@ -7,7 +7,7 @@
 UDP_Server::UDP_Server(string address, int port) {
     buffer = new Buffer("UDP Receive Buffer", BUFFER_SIZE);
     PORT = port;
-    char temp[] = address;
+    char* temp = (char*)address.c_str();
     memcpy(recipientAddr, temp, sizeof(recipientAddr));
     start();
 }
@@ -15,19 +15,19 @@ UDP_Server::UDP_Server(string address, int port) {
 void UDP_Server::start() {
     struct sockaddr_in myaddr; // our address 
 
+    cout << "Test" << endl;
     if ((server_socket = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         perror("cannot create socket\n");
-        return 0;
+        return;
     }
 
     memset((char *)&myaddr, 0, sizeof(myaddr));
     myaddr.sin_family = AF_INET;
     myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     myaddr.sin_port = htons(PORT);
-
     if (bind(server_socket, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
         perror("bind failed");
-        return 0;
+        return;
     }
 }
 
@@ -38,15 +38,15 @@ void UDP_Server::receive() {
     recvlen = recvfrom(server_socket, buf, BUFFER_SIZE, 0, (struct sockaddr *)&remaddr, &addrlen);
     if (recvlen > 0) {
         buf[recvlen] = 0;
+        string data = reinterpret_cast<const char*>(buf);
+        if (!validate(data))
+    	return;
+
+        Datum temp(data, "target", "UDP Protocol");
+        timestamp(&temp, true);
+        buffer.push(temp);
     }
 
-    string data(buff);
-    if (!validate(data))
-	return;
-
-    Datum temp(data, "target", "UDP Protocol");
-    timestamp(&temp, true);
-    buffer.push(temp);
     return;
 }
 
