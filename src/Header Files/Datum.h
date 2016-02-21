@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include <vector>
 
+
 class Datum {
 public:
     Datum();
@@ -15,6 +16,7 @@ public:
 
     void setData(std::string newData);
     std::string getData();
+	std::string getSendable();
 
     std::string getTarget();
 
