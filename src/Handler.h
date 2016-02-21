@@ -33,8 +33,8 @@ protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);
 
-    std::map<std::string, std::vector<Datum>> receiveBuffer;
-    std::map<std::string, std::vector<Datum>> sendBuffer;
+    std::map<std::string, std::vector<Datum> > receiveBuffer;
+    std::map<std::string, std::vector<Datum> > sendBuffer;
 
     IPAddr target;
 };

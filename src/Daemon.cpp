@@ -9,12 +9,12 @@ Daemon::Daemon(std::string uniqueName, Handler* parentHandler,
     void (*useData)(std::string)) {
     name = uniqueName;
     handler = parentHandler;
-    refreshRate = initRefreshRate;
+    this->useData = useData;
 }
 
 void Daemon::sendData(std::string data, std::string protocolName) {
-    Datum data(data, this->name, protocolName);
-    handler->stageData(&datum, protocolName);
+    Datum dat(data, this->name, protocolName);
+    handler->stageData(dat, protocolName);
 }
 void Daemon::sendData(std::string data, std::string protocolName, std::string target) {
     Datum data(data, target, protocolName);

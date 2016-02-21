@@ -1,7 +1,6 @@
 #ifndef __INTERCHANGE_DAEMON_H
 #define __INTERCHANGE_DAEMON_H
 
-#include <boost/circular_buffer.hpp>
 #include <string>
 #include <functional>
 #include <vector>
@@ -16,7 +15,7 @@ class Daemon {
     friend class Handler;
 public:
     Daemon(std::string uniqueName, Handler* parentHandler,
-                            std::function<void(std::string)> useData); 
+                            void (*useData)(std::string)); 
     // uniqueName defines the Daemon for the Handler.
 
     void sendData(std::string, std::string protocolName);
@@ -25,9 +24,8 @@ public:
 private:
     void pullData();
 
-    std::function<void(std::tring)> useData;
+    void (*useData)(std::string);
 
-    std::map<std::string, Datum::Datum> lastReceived;
     Handler* handler;
     std::string name;
 };
