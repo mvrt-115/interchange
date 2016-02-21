@@ -17,8 +17,8 @@
 
 class AsyncHandler : public Handler {
 public:
-    AsynchHandler(IPAddr targetAddress, Timer* timer);
-    AsynchHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod);
+    AsyncHandler(IPAddr targetAddress, Timer* timer);
+    AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod);
     void addDaemon(Daemon* newDaemon);
     void removeDaemon(std::string name);
 
@@ -37,16 +37,16 @@ private:
 
     Timer* timer;
     pthread_t clock;
-    
+
     Timer::milliseconds lastProtocolTick;
     Timer::milliseconds lastDaemonTick;
     Timer::milliseconds protocolTickRate;
     Timer::milliseconds daemonTickRate;
 
-    void *regulateHandler(void* arg);
+    void* regulateHandler(void* arg);
     void tickDaemons();
     void tickProtocols();
-    
+
     bool runHandler;
 };
 
