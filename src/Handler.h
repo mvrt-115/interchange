@@ -3,7 +3,7 @@
 
 #include <map>
 #include <string>
-#include <boost/circular_buffer.hpp>
+#include <vector>
 #include "IPAddr.h"
 #include "Datum.h"
 #include "Daemon.h"
@@ -33,8 +33,8 @@ protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);
 
-    std::map<std::string, boost::circular_buffer<Datum::Datum>> receiveBuffer;
-    std::map<std::string, boost::circular_buffer<Datum::Datum>> sendBuffer;
+    std::map<std::string, std::vector<Datum>> receiveBuffer;
+    std::map<std::string, std::vector<Datum>> sendBuffer;
 
     IPAddr target;
 };

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mvrt/interchange/src/Buffer.cpp
+Buffer.h
+/home/mvrt/interchange/src/Buffer.h
+
+/home/mvrt/interchange/src/Buffer.h
+queue
+-
+string
+-
+
+/home/mvrt/interchange/tests/buffer_test/buffer_test.cpp
+../../src/Buffer.cpp
+/home/mvrt/interchange/src/Buffer.cpp
+gtest/gtest.h
+-
+

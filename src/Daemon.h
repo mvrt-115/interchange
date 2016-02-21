@@ -1,7 +1,9 @@
 #ifndef __INTERCHANGE_DAEMON_H
 #define __INTERCHANGE_DAEMON_H
 
+#include <boost/circular_buffer.hpp>
 #include <string>
+#include <functional>
 #include <vector>
 #include "Handler.h"
 #include "Datum.h"
@@ -12,34 +14,22 @@
 class Handler;
 class Daemon {
     friend class Handler;
-
 public:
     Daemon(std::string uniqueName, Handler* parentHandler,
-        int initRefreshRate); // uniqueName defines the Daemon for the Handler.
-    // refreshRate is in ms
-    void sendData(Datum::Datum Data, std::string protocolName);
+                            std::function<void(std::string)> useData); 
+    // uniqueName defines the Daemon for the Handler.
 
-    auto getData(std::string protocolName); // Retrieves the last data retrieved
-    // by the Daemon from said protocol
-    auto waitData(
-        std::string protocolName); // Waits for new data from said protocol
-
-    void setRefreshRate(unsigned int newRefreshRate);
-    unsigned int getRefreshRate();
-
+    void sendData(std::string, std::string protocolName);
+    void sendData(std::string, std::string protocolName,
+                                     std::string target);
 private:
     void pullData();
+
+    std::function<void(std::tring)> useData;
 
     std::map<std::string, Datum::Datum> lastReceived;
     Handler* handler;
     std::string name;
-
-    unsigned int refreshRate;
-
-    enum ReadStatus { Immediate = 0, // not class bc others try to subtract ints from it
-        Last,
-        Distant };
-    std::map<std::string, ReadStatus> readStatus;
 };
 
 #endif //__INTERCHANGE_DAEMON_H
