@@ -15,7 +15,8 @@ class Daemon {
     friend class Handler;
 public:
     Daemon(std::string uniqueName, Handler* parentHandler,
-                            void (*useData)(std::string)); 
+                            void (*useData)(std::string));
+    Daemon();
     // uniqueName defines the Daemon for the Handler.
 
     void sendData(std::string, std::string protocolName);

@@ -8,7 +8,6 @@
 #include <map>
 #include "IPAddr.h"
 
-#include <auto>
 #include <pthread.h>
 
 /*
@@ -32,8 +31,8 @@ private:
     void stageData(Datum data);
     void retData(Datum data);
 
-    map<std::string, *Protocol> Protocols;
-    map<std::string, *Daemon> Daemons;
+    std::map<std::string, Protocol*> Protocols;
+    std::map<std::string, Daemon*> Daemons;
 
     Timer* timer;
     pthread_t clock;

@@ -18,6 +18,8 @@ class Handler {
     friend class Protocol;
 
 public:
+    typedef std::map<std::string, std::vector<Datum> > dataBuffer;
+
     void addDaemon(Daemon* newDaemon);
     void removeDaemon(std::string name);
 
@@ -33,8 +35,8 @@ protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);
 
-    std::map<std::string, std::vector<Datum> > receiveBuffer;
-    std::map<std::string, std::vector<Datum> > sendBuffer;
+    dataBuffer receiveBuffer;
+    dataBuffer sendBuffer;
 
     IPAddr target;
 };
