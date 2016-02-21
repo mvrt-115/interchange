@@ -1,38 +1,35 @@
 #ifndef __INTERCHANGE_DAEMON_H
 #define __INTERCHANGE_DAEMON_H
 
+#include <boost/circular_buffer.hpp>
 #include <string>
+#include <functional>
 #include <vector>
 #include "Handler.h"
-#include "Timer.h"
 #include "Datum.h"
 
 /*
 * @author Marcus Plutowski
 */
-class Daemon{
-friend class Handler;
-
+class Handler;
+class Daemon {
+    friend class Handler;
 public:
-	Daemon(std::string uniqueName, Handler* parentHandler, int initRefreshRate); //uniqueName defines the Daemon for the Handler. refreshRate is in ms
-	void sendData(Datum::Datum Data, std::string protocolName);
-	
-	std::string getData(string protocolName); //Retrieves the last data retrieved by the Daemon from said protocol
-	std::string waitData(string protocolName); //Waits for new data from said protocol
+    Daemon(std::string uniqueName, Handler* parentHandler,
+                            std::function<void(std::string)> useData); 
+    // uniqueName defines the Daemon for the Handler.
 
-	void setRefreshRate(unsigned int newRefreshRate);
-	unsigned int getRefreshRate();
+    void sendData(std::string, std::string protocolName);
+    void sendData(std::string, std::string protocolName,
+                                     std::string target);
 private:
-	void pullData();
-	
-	std::map<std::string, Datum::Datum> lastRecieved;
-	Handler* handler;
-	std::string name;
-	
-	unsigned int refreshRate;
-	
-	enum class ReadStatus = {Immediate, Last, Distant}; 
-	std::map<std::string, ReadStatus> readStatus;
+    void pullData();
+
+    std::function<void(std::tring)> useData;
+
+    std::map<std::string, Datum::Datum> lastReceived;
+    Handler* handler;
+    std::string name;
 };
 
 #endif //__INTERCHANGE_DAEMON_H

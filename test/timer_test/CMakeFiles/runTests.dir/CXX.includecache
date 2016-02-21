@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mvrt/interchange/src/CppTimer.cpp
+CppTimer.h
+/home/mvrt/interchange/src/CppTimer.h
+math.h
+-
+utility
+-
+
+/home/mvrt/interchange/src/CppTimer.h
+Timer.h
+/home/mvrt/interchange/src/Timer.h
+chrono
+-
+
+/home/mvrt/interchange/src/Timer.h
+utility
+-
+
+/home/mvrt/interchange/test/timer_test/timer_test.cpp
+../../src/CppTimer.cpp
+/home/mvrt/interchange/src/CppTimer.cpp
+gtest/gtest.h
+-
+utility
+-
+chrono
+-
+

@@ -5,32 +5,30 @@
 #include "Timer.h"
 #include <vector>
 
-/*
-* @author Marcus Plutowski
-*/
 
-class Datum{
+class Datum {
 public:
-	Datum(std::string initData, std::string target, std::string protocol);
+    Datum();
+    Datum(std::string initData, std::string target, std::string protocol);
 
-	void timeStamp(Timer* timer);
-	Timer::chronon getTimeStamp(int num); 
+    void timeStamp(Timer* timer);
+    Timer::milliseconds getTimeStamp(int num);
 
-	void setData(std::string newData);
-	std::string getData();
+    void setData(std::string newData);
+    std::string getData();
 	std::string getSendable();
-	
-	std::string getTarget();
-	
-	void setProtocol(std::string protocolName);
-	std::std getProtocol();
-private:
-	std::string data;
-	std::vector<Timer::chronon> timestamps;
-	
-	std::string protocolTransited;
-	std::string targetName;
-};
 
+    std::string getTarget();
+
+    void setProtocol(std::string protocolName);
+    std::string getProtocol();
+
+private:
+    std::string data;
+    std::vector<Timer::milliseconds> timestamps;
+
+    std::string protocolTransited;
+    std::string targetName;
+};
 
 #endif
