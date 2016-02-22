@@ -13,6 +13,10 @@ Daemon::Daemon(std::string uniqueName, Handler* parentHandler,
 }
 Daemon::Daemon(){}
 
+std::string Daemon::getName(){
+    return name;
+}
+
 void Daemon::sendData(std::string data, std::string protocolName) {
     Datum dat(data, this->name, protocolName);
     handler->stageData(dat, protocolName);

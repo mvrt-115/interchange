@@ -28,8 +28,8 @@ public:
     Protocol* getProtocol(std::string name);
 
 private:
-    void stageData(Datum data);
-    void retData(Datum data);
+    void stageData(Datum data, std::string protocolName);
+    void retData(Datum data, std::string protocolName);
 
     std::map<std::string, Protocol*> Protocols;
     std::map<std::string, Daemon*> Daemons;
@@ -37,12 +37,15 @@ private:
     Timer* timer;
     pthread_t clock;
 
+
     Timer::milliseconds lastProtocolTick;
     Timer::milliseconds lastDaemonTick;
-    Timer::milliseconds protocolTickRate;
-    Timer::milliseconds daemonTickRate;
+    Timer::milliseconds protocolTickPeriod;
+    Timer::milliseconds daemonTickPeriod;
 
-    void* regulateHandler(void* arg);
+
+    void regulateHandler();
+    static void* threadedExecutor(void* targetClass);
     void tickDaemons();
     void tickProtocols();
 

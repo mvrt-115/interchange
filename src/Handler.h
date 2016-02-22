@@ -31,6 +31,8 @@ public:
 
     Timer::milliseconds getTime();
 
+    Handler(IPAddr target);
+    Handler();
 protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);

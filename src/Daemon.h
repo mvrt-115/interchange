@@ -22,6 +22,8 @@ public:
     void sendData(std::string, std::string protocolName);
     void sendData(std::string, std::string protocolName,
                                      std::string target);
+
+    std::string getName();
 private:
     void pullData();
 

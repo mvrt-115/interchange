@@ -1,5 +1,5 @@
 #include "AsyncHandler.h"
-#include <pair>
+#include <utility>
 
 /*
 *@author Marcus Plutowski
@@ -11,11 +11,11 @@ AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer)
     this->target = targetAddress;
     this->timer = timer;
 
-    lastProtocolTick = timer.getTime();
-    lastDaemonTick = timer.getTime();
+    lastProtocolTick = timer->getTime();
+    lastDaemonTick = timer->getTime();
 
     runHandler = true;
-    pthread_create(&clock, NULL, &regulateHandler, NULL);
+    pthread_create(&clock, NULL, &AsyncHandler::regulateHandler, NULL);
 }
 AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod)
 {
@@ -24,59 +24,47 @@ AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::millisecon
     this->target = targetAddress;
     this->timer = timer;
 
-    lastProtocolTick = timer.getTime();
-    lastDaemonTick = timer.getTime();
+    lastProtocolTick = timer->getTime();
+    lastDaemonTick = timer->getTime();
 
     runHandler = true;
-    pthread_create(&clock, NULL, &regulateHandler, NULL);
-}
-AsyncHandler::~AsyncHandler()
-{
-    runHandler = false;
+    pthread_create(&clock, NULL, &threadedExecutor, NULL);
 }
 
-void AsyncHandler::addDaemon(Daemon* newDaemon) override
+void AsyncHandler::addDaemon(Daemon* newDaemon)
 {
-    Daemons.insert( std::pair< std::string, Daemon* >(newDaemon->getName(), newDaemon);
+    Daemons.insert( std::pair< std::string, Daemon* >(newDaemon->getName(), newDaemon));
 }
-void AsyncHandler::removeDaemon(std::string name) override
+void AsyncHandler::removeDaemon(std::string name)
 {
     Daemons.erase(name);
 }
 
-void AsyncHandler::addProtocol(Protocol* newProtocol) override
+void AsyncHandler::addProtocol(Protocol* newProtocol)
 {
-    Protocols.insert(std::pair< std::string, Protocol* >(newProtocol->getName(), newProtocol);
+    Protocols.insert(std::pair< std::string, Protocol* >(newProtocol->getName(), newProtocol));
 }
-void AsyncHandler::removeProtocol(std::string name) override
+void AsyncHandler::removeProtocol(std::string name)
 {
     Daemons.erase(name);
 }
 
-void AsyncHandler::stageData(Datum data, std::string protocolName) override
+void AsyncHandler::stageData(Datum data, std::string protocolName)
 {
-    for (auto buff : sendBuffer) {
-        if (buff.first = protocolName) {
-            buff.push_back(data);
-        }
-    }
+    receiveBuffer[protocolName].push_back(data);
 }
-void AsyncHandler::retData(Datum data, std::string protocolName) override
+void AsyncHandler::retData(Datum data, std::string protocolName)
 {
-    for (auto buff : receiveBuffer) {
-        if (buff.first = protocolName) {
-            buff.push_back(data);
-        }
-    }
+    receiveBuffer[protocolName].push_back(data);
 }
 
 void* AsyncHandler::regulateHandler(void* arg)
 {
-    while (regulateHandler) {
-        if ((timer.getTime() - lastDaemonTick) >= daemonTickRate) {
+    while (runHandler) {
+        if ((timer->getTime() - lastDaemonTick) >= daemonTickPeriod) {
             this->tickDaemons();
         }
-        if ((timer.getTime() - lastProtocolTick) >= protocolTickRate) {
+        if ((timer->getTime() - lastProtocolTick) >= protocolTickPeriod) {
             this->tickProtocols();
         }
     }
