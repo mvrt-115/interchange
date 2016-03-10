@@ -1,3 +1,9 @@
+#include <cstdio>
+
+#if !_ISOC11_SOURCE
+using ::gets;
+#endif
+
 #include "Handler.h"
 #include "Daemon.h"
 #include "AsyncHandler.h"

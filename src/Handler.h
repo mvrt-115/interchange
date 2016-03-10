@@ -13,29 +13,32 @@
 * @author Marcus Plutowski
 */
 class Daemon;
+class Protocol;
 class Handler {
     friend class Daemon;
     friend class Protocol;
 
 public:
     typedef std::map<std::string, std::vector<Datum> > dataBuffer;
+    Handler(IPAddr targetAddress);
+    Handler();
+    virtual ~Handler();
 
-    void addDaemon(Daemon* newDaemon);
-    void removeDaemon(std::string name);
+    virtual void addDaemon(Daemon* newDaemon);
+    virtual void removeDaemon(std::string name);
 
-    void addProtocol(Protocol* newProtocol);
-    void removeProtocol(std::string name);
+    virtual void addProtocol(Protocol* newProtocol);
+    virtual void removeProtocol(std::string name);
 
     Daemon* getDaemon(std::string name);
     Protocol* getProtocol(std::string name);
 
-    Timer::milliseconds getTime();
-
-    Handler(IPAddr target);
-    Handler();
 protected:
     void stageData(Datum data, std::string protocolName);
     void retData(Datum data, std::string protocolName);
+
+    std::vector<Protocol*> Protocols;
+    std::vector<Daemon*> Daemons;
 
     dataBuffer receiveBuffer;
     dataBuffer sendBuffer;

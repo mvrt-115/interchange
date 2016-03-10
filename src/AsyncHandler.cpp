@@ -15,7 +15,7 @@ AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer)
     lastDaemonTick = timer->getTime();
 
     runHandler = true;
-    pthread_create(&clock, NULL, &AsyncHandler::regulateHandler, NULL);
+    pthread_create(&clock, NULL, &AsyncHandler::threadedExecutor, NULL);
 }
 AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod)
 {
@@ -28,38 +28,16 @@ AsyncHandler::AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::millisecon
     lastDaemonTick = timer->getTime();
 
     runHandler = true;
-    pthread_create(&clock, NULL, &threadedExecutor, NULL);
+    pthread_create(&clock, NULL, &AsyncHandler::threadedExecutor, NULL);
 }
-
-void AsyncHandler::addDaemon(Daemon* newDaemon)
-{
-    Daemons.insert( std::pair< std::string, Daemon* >(newDaemon->getName(), newDaemon));
+AsyncHandler::~AsyncHandler(){
+    runHandler = false;
+    pthread_join(clock, NULL);
 }
-void AsyncHandler::removeDaemon(std::string name)
-{
-    Daemons.erase(name);
+void* AsyncHandler::threadedExecutor(void* targetClass) {
+    static_cast<AsyncHandler*>(targetClass)->regulateHandler();
 }
-
-void AsyncHandler::addProtocol(Protocol* newProtocol)
-{
-    Protocols.insert(std::pair< std::string, Protocol* >(newProtocol->getName(), newProtocol));
-}
-void AsyncHandler::removeProtocol(std::string name)
-{
-    Daemons.erase(name);
-}
-
-void AsyncHandler::stageData(Datum data, std::string protocolName)
-{
-    receiveBuffer[protocolName].push_back(data);
-}
-void AsyncHandler::retData(Datum data, std::string protocolName)
-{
-    receiveBuffer[protocolName].push_back(data);
-}
-
-void* AsyncHandler::regulateHandler(void* arg)
-{
+void AsyncHandler::regulateHandler() {
     while (runHandler) {
         if ((timer->getTime() - lastDaemonTick) >= daemonTickPeriod) {
             this->tickDaemons();
@@ -69,16 +47,15 @@ void* AsyncHandler::regulateHandler(void* arg)
         }
     }
 }
-void AsyncHandler::tickDaemons()
-{
-    for (Daemon* daemon : Daemons) {
+void AsyncHandler::tickDaemons() {
+    for (auto daemon : Daemons) {
         daemon->pullData();
         /*TODO FINISH REGULATION */
     }
 }
 void AsyncHandler::tickProtocols()
 {
-    for (Protocol* protocol : Protocol) {
+    for (auto protocol : Protocols) {
         protocol->pullData();
         /*TODO FINISH REGULATION */
     }

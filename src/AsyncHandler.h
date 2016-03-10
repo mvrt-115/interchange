@@ -18,21 +18,10 @@ class AsyncHandler : public Handler {
 public:
     AsyncHandler(IPAddr targetAddress, Timer* timer);
     AsyncHandler(IPAddr targetAddress, Timer* timer, Timer::milliseconds daemonTickPeriod, Timer::milliseconds protocolTickPeriod);
-    void addDaemon(Daemon* newDaemon);
-    void removeDaemon(std::string name);
+    ~AsyncHandler();
 
-    void addProtocol(Protocol* newProtocol);
-    void removeProtocol(std::string name);
-
-    Daemon* getDaemon(std::string name);
-    Protocol* getProtocol(std::string name);
-
-private:
-    void stageData(Datum data, std::string protocolName);
-    void retData(Datum data, std::string protocolName);
-
-    std::map<std::string, Protocol*> Protocols;
-    std::map<std::string, Daemon*> Daemons;
+    void regulateHandler();
+protected:
 
     Timer* timer;
     pthread_t clock;
@@ -44,7 +33,6 @@ private:
     Timer::milliseconds daemonTickPeriod;
 
 
-    void regulateHandler();
     static void* threadedExecutor(void* targetClass);
     void tickDaemons();
     void tickProtocols();

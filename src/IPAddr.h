@@ -8,6 +8,7 @@ class IPAddr {
 public:
     IPAddr(int blockA, int blockB, int blockC, int blockD);
     IPAddr(std::string addressString); // MSB first in the string. Always include
+    IPAddr();
     // 3 characters. 192168001104 =
     // 192.168.1.104
 

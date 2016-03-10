@@ -8,6 +8,7 @@ IPAddr::IPAddr(int blockA, int blockB, int blockC, int blockD)
     this->setAddr(blockA, blockB, blockC, blockD);
 }
 IPAddr::IPAddr(std::string address) { this->setAddr(address); }
+IPAddr::IPAddr(){this->setAddr("000000000000");}
 
 void IPAddr::setAddr(int blockA, int blockB, int blockC, int blockD)
 {

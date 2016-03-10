@@ -13,6 +13,7 @@
 class Handler;
 class Daemon {
     friend class Handler;
+    friend class AsyncHandler;
 public:
     Daemon(std::string uniqueName, Handler* parentHandler,
                             void (*useData)(std::string));

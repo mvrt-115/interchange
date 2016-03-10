@@ -11,18 +11,19 @@
 class Handler;
 
 class Protocol {
-
+friend class Handler;
+friend class AsyncHandler;
 public:
-    Protocol(std::string name, void (*retData)(std::string), int port);
+    virtual void ProtocolFactory(std::string name, Handler* handler, int port) = 0;
 
-    virtual void setName(std::string newName) = 0;
     virtual std::string getName() = 0;
 
 protected:
     std::string name;
-    int targetPort;
+    int port;
+    Handler* handler;
 
-    void pullData();
+    virtual void pullData() = 0;
 };
 
 #endif
